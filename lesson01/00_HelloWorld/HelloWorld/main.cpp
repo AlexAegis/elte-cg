@@ -2,6 +2,6 @@
 
 int main() {
 	std::cout << "Hello World!" << std::endl;
-	system("pause");
+	system("pause"); //std::cin.get();
 	return 0;
 }
