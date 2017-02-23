@@ -63,7 +63,7 @@ int main( int argc, char* args[] )
 	//
 	// 3. lépés: tölstünk be egy képfájlt
 	//
-	SDL_Texture* tex = IMG_LoadTexture( ren, "kep.png" );
+	SDL_Texture* tex = IMG_LoadTexture( ren, "animation_sheet.gif" );
 	if ( tex == 0 )
 	{
         std::cout << "[Kép betöltése] Hiba: " << IMG_GetError() << std::endl;
@@ -83,9 +83,6 @@ int main( int argc, char* args[] )
 	// egér X és Y koordinátái
 	Sint32 mouseX = 0, mouseY = 0;
 	
-	int h = 0;
-	int dir = 1;
-
 	while (!quit)
 	{
 		// amíg van feldolgozandó üzenet dolgozzuk fel mindet:
@@ -122,35 +119,34 @@ int main( int argc, char* args[] )
 
 		int t = (SDL_GetTicks() / 40) % 100;
 
-		if (dir == 1) {
-			h = h + 2;
-		}
-		else {
-			h = h - 2;
-		}
-		if (h > 100 || h < 0) {
-			dir = 0 - dir;
-		}
-
 		SDL_Rect cursor_rect; 
-		cursor_rect.w = tex_width + h;
+		cursor_rect.w = tex_width;
 		cursor_rect.h = tex_height;
-		cursor_rect.x = mouseX - (tex_width + h) /2;
+		cursor_rect.x = mouseX - tex_width /2;
 		cursor_rect.y = mouseY - tex_height /2;
 
-		SDL_Rect sub_rect;
-		sub_rect.w = tex_width + h;
-		sub_rect.h = tex_height + h;
-		sub_rect.x = mouseX - (tex_width + h) / 2;
-		sub_rect.y = mouseY - (tex_height + h) / 2;
+		int currX = 0;
+		int currY = 0;
 
+		SDL_Rect sub_rect;
+		sub_rect.w = 100;
+		sub_rect.h = 100;
+		sub_rect.x = currX * 100;
+		sub_rect.y = currY * 100;
 
 		SDL_RenderCopy( ren,				// melyik renderelõre rajzoljunk
 						tex,				// melyik textúrát rajzoljuk rá
-						0,					// a textúra melyik al-rect-jét
-						&sub_rect);		// a renderelõ felületének mely részére
+						&sub_rect,					// a textúra melyik al-rect-jét
+						&cursor_rect);		// a renderelõ felületének mely részére
 
+		if (currX >= 6) {
+			currX = 0;
+			currY = currY + 1;
+		}
 
+		if (currY >= 6) {
+			currY = 0;
+		}
 
 		// 1. feladat: pattogtassuk a képernyõn a kirajzolt képet! Induljon el a kép
 		//    a képernyõ közepérõl egy irányba és amikor valamelyik széle az ablak széléhez

@@ -1,5 +1,4 @@
 #include <SDL.h>
-#include <SDL_image.h>
 #include <iostream>
 
 void exitProgram()
@@ -8,11 +7,23 @@ void exitProgram()
 	std::cin.get();
 }
 
+void rotate(int a[4]) {
+	int temp = a[0];
+	a[0] = a[1];
+	a[1] = a[2];
+	a[2] = a[3];
+	a[3] = temp;
+}
+
+void copyArray(int a[3], int b[3]) {
+	a[0] = b[0];
+	a[1] = b[1];
+	a[2] = b[2];
+}
+
 int main( int argc, char* args[] )
 {
-	// állítsuk be, hogy kilépés elõtt hívja meg a rendszer az exitProgram() függvényt - Kérdés: mi lenne enélkül?
 	atexit( exitProgram );
-
 	//
 	// 1. lépés: inicializáljuk az SDL-t
 	//
@@ -61,18 +72,6 @@ int main( int argc, char* args[] )
     }
 
 	//
-	// 3. lépés: tölstünk be egy képfájlt
-	//
-	SDL_Texture* tex = IMG_LoadTexture( ren, "kep.png" );
-	if ( tex == 0 )
-	{
-        std::cout << "[Kép betöltése] Hiba: " << IMG_GetError() << std::endl;
-		SDL_DestroyWindow( win );
-        return 1;
-	}
-
-
-	//
 	// 4. lépés: indítsuk el a fõ üzenetfeldolgozó ciklust
 	// 
 
@@ -83,11 +82,19 @@ int main( int argc, char* args[] )
 	// egér X és Y koordinátái
 	Sint32 mouseX = 0, mouseY = 0;
 	
-	int h = 0;
-	int dir = 1;
-
+	int redColours[3] = { 255, 20, 20 };
+	int blueColours[3] = { 20, 20, 255 };
+	int actualColours[3];
+	copyArray(actualColours, redColours);
+	int sizes[4] = { 20, 40, 80, 40 };
+	int time = 0;
 	while (!quit)
 	{
+		time++;
+		if (time > 1000) {
+			time = 0;
+			rotate(sizes);
+		}
 		// amíg van feldolgozandó üzenet dolgozzuk fel mindet:
 		while ( SDL_PollEvent(&ev) )
 		{
@@ -105,6 +112,12 @@ int main( int argc, char* args[] )
 				mouseY = ev.motion.y;
 				break;
 			case SDL_MOUSEBUTTONUP:
+				if (ev.button.button == SDL_BUTTON_LEFT) {
+					copyArray(actualColours, redColours);
+				}
+				else if (ev.button.button == SDL_BUTTON_RIGHT) {
+					copyArray(actualColours, blueColours);
+				}
 				// egérgomb felengedésének eseménye; a felengedett gomb a ev.button.button -ban található
 				// a lehetséges gombok a következõek: SDL_BUTTON_LEFT, SDL_BUTTON_MIDDLE, 
 				//		SDL_BUTTON_RIGHT, SDL_BUTTON_WHEELUP, SDL_BUTTON_WHEELDOWN
@@ -116,52 +129,36 @@ int main( int argc, char* args[] )
 		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 		SDL_RenderClear(ren);
 
-		// rajzoljuk ki a betöltött képet az egékurzor köré!
-		int tex_width, tex_height;
-		SDL_QueryTexture( tex, 0, 0, &tex_width, &tex_height);
+		// aktuális rajzolási szín legyen zöld és rajzoljunk ki egy vonalat
+		SDL_SetRenderDrawColor(	ren,	// renderer címe, aminek a rajzolási színét be akarjuk állítani
+								0,		// piros
+								255,	// zöld
+								0,		// kék
+								255);	// átlátszatlanság
 
-		int t = (SDL_GetTicks() / 40) % 100;
+		SDL_RenderDrawLine(	ren,	// renderer címe, ahová vonalat akarunk rajzolni
+							0, 0, // vonal kezdõpontjának (x,y) koordinátái
+							mouseX, mouseY);// vonal végpontjának (x,y) koordinátái
+		
+		// definiáljunk egy (mouseX, mouseY) középpontó, tengelyekkel párhuzamos oldalú
+		// 20x20-as négyzetet:
+		SDL_Rect cursor_rect;
+		cursor_rect.x = mouseX - sizes[0] / 2;
+		cursor_rect.y = mouseY - sizes[0] / 2;
+		cursor_rect.w = sizes[0];
+		cursor_rect.h = sizes[0];
+		// legyen a kitöltési szín piros
+		SDL_SetRenderDrawColor( ren, actualColours[0], actualColours[1], actualColours[2], 255 );
+		SDL_RenderFillRect( ren, &cursor_rect);
 
-		if (dir == 1) {
-			h = h + 2;
-		}
-		else {
-			h = h - 2;
-		}
-		if (h > 100 || h < 0) {
-			dir = 0 - dir;
-		}
+		// 1. feladat: az eltelt idõ függvényében periodikusan nõjjön és csökkenjen
+		//    az egérmutató középpontjával kirajzolt négyszög
 
-		SDL_Rect cursor_rect; 
-		cursor_rect.w = tex_width + h;
-		cursor_rect.h = tex_height;
-		cursor_rect.x = mouseX - (tex_width + h) /2;
-		cursor_rect.y = mouseY - tex_height /2;
+		// 2. feladat: ha a user a bal egérgombot nyomja meg akkor a téglalap színe váltson pirosra,
+		//    ha a jobb egérgombot, akkor kékre
 
-		SDL_Rect sub_rect;
-		sub_rect.w = tex_width + h;
-		sub_rect.h = tex_height + h;
-		sub_rect.x = mouseX - (tex_width + h) / 2;
-		sub_rect.y = mouseY - (tex_height + h) / 2;
-
-
-		SDL_RenderCopy( ren,				// melyik renderelõre rajzoljunk
-						tex,				// melyik textúrát rajzoljuk rá
-						0,					// a textúra melyik al-rect-jét
-						&sub_rect);		// a renderelõ felületének mely részére
-
-
-
-		// 1. feladat: pattogtassuk a képernyõn a kirajzolt képet! Induljon el a kép
-		//    a képernyõ közepérõl egy irányba és amikor valamelyik széle az ablak széléhez
-		//    közeledik, pattanjon vissza!
-
-		// 2. feladat: az animation_sheet.gif-ben található animációt rajzoljuk ki úgy,
-		//    hogy a futás egy fázisa 3 mp-ig tartson! Tipp: a source rect-et kell módosítani!
-
-		// 3. feladat: ne legyen pattogás, a felhasználó tudjon jobbra-balra futtatni a 
-		//    figurát a balra/jobbra billentyûk lenyomásával. Ha elengedi a billentyût,
-		//    akkor álljon meg a figura, ahol van (tipp: kell új képfájl)
+		// 3. feladat: rajzolj ki egy 50 sugarú körvonalat az egérmutató köré!
+		// segítség: használd a SDL_RenderDrawLines()-t
 
 		// jelenítsük meg a backbuffer tartalmát
 		SDL_RenderPresent(ren);
@@ -173,7 +170,6 @@ int main( int argc, char* args[] )
 	// 4. lépés: lépjünk ki
 	// 
 
-	SDL_DestroyTexture( tex );
 	SDL_DestroyRenderer( ren );
 	SDL_DestroyWindow( win );
 
