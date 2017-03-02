@@ -1,6 +1,8 @@
 #include "MyApp.h"
 #include <math.h>
 
+
+
 CMyApp::CMyApp(void)
 {
 }
@@ -28,6 +30,7 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
+	SDL_Rect r = new SDL_Rect(0, 0, 10, 10);
 }
 
 
@@ -35,6 +38,9 @@ void CMyApp::Render()
 {
 	// töröljük a frampuffert (GL_COLOR_BUFFER_BIT) és a mélységi Z puffert (GL_DEPTH_BUFFER_BIT)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+
 }
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
