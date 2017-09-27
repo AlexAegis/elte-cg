@@ -29,7 +29,7 @@ int main( int argc, char* args[] )
 	// 2. lépés: hozzuk létre az ablakot, amire rajzolni fogunk
 	//
 
-	SDL_Window *win = nullptr;
+	SDL_Window *win = 0;
     win = SDL_CreateWindow( "Hello SDL!",				// az ablak fejléce
 							100,						// az ablak bal-felsõ sarkának kezdeti X koordinátája
 							100,						// az ablak bal-felsõ sarkának kezdeti Y koordinátája
@@ -38,7 +38,7 @@ int main( int argc, char* args[] )
 							SDL_WINDOW_SHOWN);			// megjelenítési tulajdonságok
 
 	// ha nem sikerült létrehozni az ablakot, akkor írjuk ki a hibát, amit kaptunk és lépjünk ki
-    if (win == nullptr)
+    if (win == 0)
 	{
 		std::cout << "[Ablak létrehozása]Hiba az SDL inicializálása közben: " << SDL_GetError() << std::endl;
         return 1;
@@ -48,13 +48,13 @@ int main( int argc, char* args[] )
 	// 3. lépés: hozzunk létre egy renderelõt, rajzolót
 	//
 
-    SDL_Renderer *ren = nullptr;
+    SDL_Renderer *ren = 0;
     ren = SDL_CreateRenderer(	win, // melyik ablakhoz rendeljük hozzá a renderert
 								-1,  // melyik indexú renderert inicializáljuka
 									 // a -1 a harmadik paraméterben meghatározott igényeinknek megfelelõ elsõ renderelõt jelenti
 								SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);	// az igényeink, azaz
 																						// hardveresen gyorsított és vsync-et beváró
-    if (ren == nullptr)
+    if (ren == 0)
 	{
         std::cout << "[Renderer létrehozása]Hiba az SDL inicializálása közben: " << SDL_GetError() << std::endl;
         return 1;
@@ -64,7 +64,7 @@ int main( int argc, char* args[] )
 	// 3. lépés: tölstünk be egy képfájlt
 	//
 	SDL_Texture* tex = IMG_LoadTexture( ren, "kep.png" );
-	if ( tex == nullptr)
+	if ( tex == 0 )
 	{
         std::cout << "[Kép betöltése] Hiba: " << IMG_GetError() << std::endl;
 		SDL_DestroyWindow( win );
@@ -82,6 +82,9 @@ int main( int argc, char* args[] )
 	SDL_Event ev;
 	// egér X és Y koordinátái
 	Sint32 mouseX = 0, mouseY = 0;
+	
+	int h = 0;
+	int dir = 1;
 
 	while (!quit)
 	{
@@ -115,18 +118,39 @@ int main( int argc, char* args[] )
 
 		// rajzoljuk ki a betöltött képet az egékurzor köré!
 		int tex_width, tex_height;
-		SDL_QueryTexture( tex, nullptr, nullptr, &tex_width, &tex_height);
+		SDL_QueryTexture( tex, 0, 0, &tex_width, &tex_height);
+
+		int t = (SDL_GetTicks() / 40) % 100;
+
+		if (dir == 1) {
+			h = h + 2;
+		}
+		else {
+			h = h - 2;
+		}
+		if (h > 100 || h < 0) {
+			dir = 0 - dir;
+		}
 
 		SDL_Rect cursor_rect; 
-		cursor_rect.w = tex_width;
+		cursor_rect.w = tex_width + h;
 		cursor_rect.h = tex_height;
-		cursor_rect.x = mouseX - tex_width /2;
+		cursor_rect.x = mouseX - (tex_width + h) /2;
 		cursor_rect.y = mouseY - tex_height /2;
+
+		SDL_Rect sub_rect;
+		sub_rect.w = tex_width + h;
+		sub_rect.h = tex_height + h;
+		sub_rect.x = mouseX - (tex_width + h) / 2;
+		sub_rect.y = mouseY - (tex_height + h) / 2;
+
 
 		SDL_RenderCopy( ren,				// melyik renderelõre rajzoljunk
 						tex,				// melyik textúrát rajzoljuk rá
-						nullptr,			// a textúra melyik al-rect-jét
-						&cursor_rect );		// a renderelõ felületének mely részére
+						0,					// a textúra melyik al-rect-jét
+						&sub_rect);		// a renderelõ felületének mely részére
+
+
 
 		// 1. feladat: pattogtassuk a képernyõn a kirajzolt képet! Induljon el a kép
 		//    a képernyõ közepérõl egy irányba és amikor valamelyik széle az ablak széléhez
