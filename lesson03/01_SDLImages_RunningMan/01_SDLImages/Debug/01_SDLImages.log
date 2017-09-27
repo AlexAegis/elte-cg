@@ -1,5 +1,6 @@
 ﻿  main.cpp
-c:\users\alexaegis\documents\elte-computer-graphics\lesson03\01_sdlimages_runningman\01_sdlimages\main.cpp(157): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\alexaegis\documents\elte-computer-graphics\lesson03\01_sdlimages_runningman\01_sdlimages\main.cpp(158): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  01_SDLImages.vcxproj -> C:\Users\alexaegis\Documents\elte-computer-graphics\lesson03\01_SDLImages_RunningMan\Debug\01_SDLImages.exe
-  01_SDLImages.vcxproj -> C:\Users\alexaegis\Documents\elte-computer-graphics\lesson03\01_SDLImages_RunningMan\Debug\01_SDLImages.pdb (Full PDB)
+c:\users\alexaegis\elte-computer-graphics\lesson03\01_sdlimages_runningman\01_sdlimages\main.cpp(157): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\alexaegis\elte-computer-graphics\lesson03\01_sdlimages_runningman\01_sdlimages\main.cpp(158): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  LINK : C:\Users\alexaegis\elte-computer-graphics\lesson03\01_SDLImages_RunningMan\Debug\01_SDLImages.exe not found or not built by the last incremental link; performing full link
+  01_SDLImages.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson03\01_SDLImages_RunningMan\Debug\01_SDLImages.exe
+  01_SDLImages.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson03\01_SDLImages_RunningMan\Debug\01_SDLImages.pdb (Full PDB)
