@@ -126,6 +126,9 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
+	color.r = 1.0;
+	color.g = 0.5;
+	color.b = 0.2;
 }
 
 
@@ -136,6 +139,8 @@ void CMyApp::Render()
 
 	// shader bekapcsolasa
 	glUseProgram( m_programID );
+
+	glUniform3f(m_color, color.r, color.g, color.b);
 
 	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
 	glBindVertexArray(m_vaoID);

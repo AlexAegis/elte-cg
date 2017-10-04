@@ -34,7 +34,7 @@ protected:
 	GLuint m_programID; // shaderek programja
 
 	GLuint m_color;
-
+	glm::vec3 color;
 
 	// OpenGL-es dolgok
 	GLuint m_vaoID; // vertex array object erõforrás azonosító

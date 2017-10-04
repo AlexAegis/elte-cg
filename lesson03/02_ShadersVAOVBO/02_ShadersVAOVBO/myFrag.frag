@@ -5,9 +5,12 @@ in vec3 vs_out_pos;
 
 out vec4 fs_out_col;
 
+uniform vec3 m_color;
+
 void main()
 {
 	fs_out_col = vec4(vs_out_col, 1);
+	fs_out_col = vec4(m_color, 1);
 }
 
 // 1. feladat: rajzoljuk ki fehérrel a téglalapot!
