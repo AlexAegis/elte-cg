@@ -1,6 +1,7 @@
 ﻿  MyApp.cpp
-c:\users\alexaegis\elte-computer-graphics\lesson03\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(131): warning C4305: '=': truncation from 'double' to 'float'
-  main.cpp
-  Generating Code...
-  02_ShadersVAOVBO.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson03\02_ShadersVAOVBO\Debug\02_ShadersVAOVBO.exe
-  02_ShadersVAOVBO.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson03\02_ShadersVAOVBO\Debug\02_ShadersVAOVBO.pdb (Full PDB)
+c:\users\alexaegis\elte-computer-graphics\lesson04\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(139): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\alexaegis\elte-computer-graphics\lesson04\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(143): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\alexaegis\elte-computer-graphics\lesson04\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(145): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\alexaegis\elte-computer-graphics\lesson04\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(146): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  02_ShadersVAOVBO.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson04\02_ShadersVAOVBO\Debug\02_ShadersVAOVBO.exe
+  02_ShadersVAOVBO.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson04\02_ShadersVAOVBO\Debug\02_ShadersVAOVBO.pdb (Full PDB)

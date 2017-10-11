@@ -2,6 +2,7 @@
 #include "GLUtils.hpp"
 
 #include <math.h>
+#define PI 3.14159265
 
 CMyApp::CMyApp(void)
 {
@@ -19,7 +20,7 @@ bool CMyApp::Init()
 {
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
-
+	glPoligonMode(GL_FACE, GL_LINE);
 	glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
 	glEnable(GL_DEPTH_TEST); // mélységi teszt bekapcsolása (takarás)
 
@@ -126,9 +127,28 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
-	color.r = 1.0;
+
+	static double param = 0, r = 1, g = 1, b = 1, dirr = 1, dirg = 0.2, dirb = -1;
+
+	r += 2 * dirr;
+	if (r >= 90 || r <= 0) dirr *= -1;
+	g += 1 * dirg;
+	if (g >= 90 || g <= 0) dirg *= -1;
+	b += 1.5 * dirb;
+	if (b >= 90 || b <= 0) dirb *= -1;
+	color.r = param + (r * PI / 180);
+	color.r = tanh(color.r);
+	//std::cout << "t: " << t << " color.r: " << color.r << std::endl;
 	color.g = 0.5;
+	color.g = param + (g * PI / 180);
+	color.g = tanh(color.g);
 	color.b = 0.2;
+	color.b = param + (b * PI / 180);
+	color.b = tanh(color.b);
+
+
+
+
 }
 
 
@@ -141,6 +161,11 @@ void CMyApp::Render()
 	glUseProgram( m_programID );
 
 	glUniform3f(m_color, color.r, color.g, color.b);
+
+
+	//m_matWorld = glm::translate<float>(glm::vec2(1,1,0)) * glm::rotate<float>(SDL_GetTicks()/1000.0, glm::vec3(1,0,0) ) * glm::mat4(1.0f);
+
+
 
 	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
 	glBindVertexArray(m_vaoID);
