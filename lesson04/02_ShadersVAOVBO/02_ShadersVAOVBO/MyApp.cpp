@@ -163,7 +163,9 @@ void CMyApp::Render()
 	glUniform3f(m_color, color.r, color.g, color.b);
 
 
-	//m_matWorld = glm::translate<float>(glm::vec2(1,1,0)) * glm::rotate<float>(SDL_GetTicks()/1000.0, glm::vec3(1,0,0) ) * glm::mat4(1.0f);
+	static glm::mat4 m_matWorld;
+
+	m_matWorld = glm::translate<float>(glm::vec2(1,1,0)) * glm::rotate<float>(SDL_GetTicks()/1000.0, glm::vec3(1,0,0) ) * glm::mat4(1.0f);
 
 
 
