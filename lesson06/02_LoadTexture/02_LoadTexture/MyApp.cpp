@@ -71,19 +71,55 @@ bool CMyApp::Init()
 	Vertex vert[] =
 	{ 
 		//          x,  y, z             R, G, B			 s, t
-		{glm::vec3(-1, -1, 0), glm::vec3(1, 0, 0), glm::vec2(0, 0)},
-		{glm::vec3( 1, -1, 0), glm::vec3(0, 1, 0), glm::vec2(1, 0)},
-		{glm::vec3(-1,  1, 0), glm::vec3(0, 0, 1), glm::vec2(0, 1)},
-		{glm::vec3( 1,  1, 0), glm::vec3(1, 1, 1), glm::vec2(1, 1)},
+		//{glm::vec3(-1, -1, 1), glm::vec3(1, 0, 0), glm::vec2(0, 0)}, // 0
+		//{glm::vec3( 1, -1, 1), glm::vec3(0, 1, 0), glm::vec2(1, 0)}, // 1
+		//{glm::vec3(-1,  1, 1), glm::vec3(0, 0, 1), glm::vec2(0, 1)}, // 4
+		//{glm::vec3( 1,  1, 1), glm::vec3(1, 1, 1), glm::vec2(1, 1)}, // 5
+
+
+		{ glm::vec3(-1, -1, 1), glm::vec3(1, 0, 0), glm::vec2(0, 0) }, // 0
+		{ glm::vec3(1, -1, 1), glm::vec3(0, 1, 0), glm::vec2(1, 0) }, // 1
+		{ glm::vec3(1, -1, -1), glm::vec3(1, 1, 1), glm::vec2(0, 1) }, // 2
+		{ glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1), glm::vec2(1, 1) }, // 3
+		{ glm::vec3(-1,  1, 1), glm::vec3(0, 0, 1), glm::vec2(0, 0) }, // 4
+		{ glm::vec3(1,  1, 1), glm::vec3(1, 1, 1), glm::vec2(1, 0) }, // 5
+		{ glm::vec3(1,  1, -1), glm::vec3(1, 1, 1), glm::vec2(0, 1) }, // 6
+		{ glm::vec3(-1,  1, -1), glm::vec3(1, 1, 1), glm::vec2(0, 1) }, // 7
+		{ glm::vec3(0,  2, 0), glm::vec3(1, 1, 1), glm::vec2(1, 1) }, // 8
 	};
+
 
 	// indexpuffer adatai
     GLushort indices[]=
     {
-		// 1. háromszög
         0,1,2,
-		// 2. háromszög
-        2,1,3,
+        0,2,3,
+
+		0,1,5,
+		0,5,4,
+
+		7,3,0,
+		4,7,0,
+
+		2,6,1,
+		6,5,1,
+
+		7,6,2,
+		3,7,2,
+
+		6,8,5,
+
+		5,8,4,
+
+		7,4,8,
+
+		8,6,7,
+
+
+
+	
+
+
     };
 
 	// 1 db VAO foglalasa
@@ -99,7 +135,7 @@ bool CMyApp::Init()
 				  sizeof(vert),		// ennyi bájt nagyságban
 				  vert,	// errõl a rendszermemóriabeli címrõl olvasva
 				  GL_STATIC_DRAW);	// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévõ adatokat
-	
+
 
 	// VAO-ban jegyezzük fel, hogy a VBO-ban az elsõ 3 float sizeof(Vertex)-enként lesz az elsõ attribútum (pozíció)
 	glEnableVertexAttribArray(0); // ez lesz majd a pozíció
@@ -226,8 +262,9 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
-	// nézeti transzformáció beállítása
-	m_matView = glm::lookAt(glm::vec3( 0,  0,  5),		// honnan nézzük a színteret
+	float t = SDL_GetTicks() / 1000.0f;
+		// nézeti transzformáció beállítása
+	m_matView = glm::lookAt(glm::vec3( 5*cosf(t),  3,  5*sinf(t)),		// honnan nézzük a színteret
 							glm::vec3( 0,  0,  0),		// a színtér melyik pontját nézzük
 							glm::vec3( 0,  1,  0));		// felfelé mutató irány a világban
 }
@@ -273,7 +310,7 @@ void CMyApp::Render()
 
 	// kirajzolás
 	glDrawElements(	GL_TRIANGLES,		// primitív típus
-					6,					// hany csucspontot hasznalunk a kirajzolashoz
+					42,					// hany csucspontot hasznalunk a kirajzolashoz
 					GL_UNSIGNED_SHORT,	// indexek tipusa
 					0);					// indexek cime
 
