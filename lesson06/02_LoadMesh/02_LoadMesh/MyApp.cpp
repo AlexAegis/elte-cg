@@ -8,52 +8,15 @@ CMyApp::CMyApp(void)
 	m_vaoID = 0;
 	m_vboID = 0;
 	m_programID = 0;
-	m_rndTextureID = 0;
 	m_waterTextureID = 0;
+
+	m_mesh = 0;
 }
 
 
 CMyApp::~CMyApp(void)
 {
 }
-
-GLuint CMyApp::GenTexture()
-{
-    unsigned char tex[256][256][3];
- 
-    for (int i=0; i<256; ++i)
-        for (int j=0; j<256; ++j)
-        {
-			tex[i][j][0] = rand()%256;
-			tex[i][j][1] = rand()%256;
-			tex[i][j][2] = rand()%256;
-        }
- 
-	GLuint tmpID;
-
-	// generáljunk egy textúra erõforrás nevet
-    glGenTextures(1, &tmpID);
-	// aktiváljuk a most generált nevû textúrát
-    glBindTexture(GL_TEXTURE_2D, tmpID);
-	// töltsük fel adatokkal
-	glTexImage2D(	GL_TEXTURE_2D,		// melyik binding point-on van a textúra erõforrás, amihez tárolást rendelünk
-					0,					// melyik részletességi szint adatait határozzuk meg
-					GL_RGB,				// textúra belsõ tárolási formátuma (GPU-n)
-					256, 256,			// szélesség, magasság
-					0,					// nulla kell, hogy legyen ( https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml )
-					GL_RGB,				// forrás (=CPU-n) formátuma
-					GL_UNSIGNED_BYTE,	// forrás egy pixelének egy csatornáját hogyan tároljuk
-					tex);				// forráshoz pointer
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);	// bilineáris szûrés kicsinyítéskor
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	// és nagyításkor is
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	return tmpID;
-}
-
 
 bool CMyApp::Init()
 {
@@ -70,56 +33,20 @@ bool CMyApp::Init()
 
 	Vertex vert[] =
 	{ 
-		//          x,  y, z             R, G, B			 s, t
-		//{glm::vec3(-1, -1, 1), glm::vec3(1, 0, 0), glm::vec2(0, 0)}, // 0
-		//{glm::vec3( 1, -1, 1), glm::vec3(0, 1, 0), glm::vec2(1, 0)}, // 1
-		//{glm::vec3(-1,  1, 1), glm::vec3(0, 0, 1), glm::vec2(0, 1)}, // 4
-		//{glm::vec3( 1,  1, 1), glm::vec3(1, 1, 1), glm::vec2(1, 1)}, // 5
-
-
-		{ glm::vec3(-1, -1, 1), glm::vec3(1, 0, 0), glm::vec2(0, 0) }, // 0
-		{ glm::vec3(1, -1, 1), glm::vec3(0, 1, 0), glm::vec2(0, 1) }, // 1
-		{ glm::vec3(1, -1, -1), glm::vec3(1, 1, 1), glm::vec2(1, 1) }, // 2
-		{ glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1), glm::vec2(0, 1) }, // 3
-		{ glm::vec3(-1,  1, 1), glm::vec3(0, 0, 1), glm::vec2(1, 1) }, // 4
-		{ glm::vec3(1,  1, 1), glm::vec3(1, 1, 1), glm::vec2(0, 1) }, // 5
-		{ glm::vec3(1,  1, -1), glm::vec3(1, 1, 1), glm::vec2(1, 1) }, // 6
-		{ glm::vec3(-1,  1, -1), glm::vec3(1, 1, 1), glm::vec2(1, 1) }, // 7
-		{ glm::vec3(0,  2, 0), glm::vec3(1, 1, 1), glm::vec2(0.5, 1) }, // 8
+		//          x,  y, z               nx,ny,nz			 s, t
+		{glm::vec3(-10, 0, -10), glm::vec3( 0, 1, 0), glm::vec2(0, 0)},
+		{glm::vec3(-10, 0,  10), glm::vec3( 0, 1, 0), glm::vec2(0, 1)},
+		{glm::vec3( 10, 0, -10), glm::vec3( 0, 1, 0), glm::vec2(1, 0)},
+		{glm::vec3( 10, 0,  10), glm::vec3( 0, 1, 0), glm::vec2(1, 1)},
 	};
-
 
 	// indexpuffer adatai
     GLushort indices[]=
     {
+		// 1. háromszög
         0,1,2,
-        0,2,3,
-
-		0,1,5,
-		0,5,4,
-
-		7,3,0,
-		4,7,0,
-
-		2,6,1,
-		6,5,1,
-
-		7,6,2,
-		3,7,2,
-
-		6,8,5,
-
-		5,8,4,
-
-		7,4,8,
-
-		8,6,7,
-
-
-
-	
-
-
+		// 2. háromszög
+        2,1,3,
     };
 
 	// 1 db VAO foglalasa
@@ -135,7 +62,7 @@ bool CMyApp::Init()
 				  sizeof(vert),		// ennyi bájt nagyságban
 				  vert,	// errõl a rendszermemóriabeli címrõl olvasva
 				  GL_STATIC_DRAW);	// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévõ adatokat
-
+	
 
 	// VAO-ban jegyezzük fel, hogy a VBO-ban az elsõ 3 float sizeof(Vertex)-enként lesz az elsõ attribútum (pozíció)
 	glEnableVertexAttribArray(0); // ez lesz majd a pozíció
@@ -235,23 +162,26 @@ bool CMyApp::Init()
 	// shader-beli transzformációs mátrixok címének lekérdezése
 	m_loc_mvp = glGetUniformLocation( m_programID, "MVP");
 
-
-	m_loc_texture = glGetUniformLocation( m_programID, "texImage" );
+	m_loc_texture = glGetUniformLocation( m_programID, "texture" );
 
 	//
 	// egyéb erõforrások betöltése
 	//
 
 	// textúra betöltése
-	m_rndTextureID = GenTexture();
 	m_waterTextureID = TextureFromFile("texture.bmp");
+
+	// mesh betoltese
+	m_mesh = ObjParser::parse("Suzanne.obj");
+	m_mesh->initBuffers();
+
 
 	return true;
 }
 
 void CMyApp::Clean()
 {
-	glDeleteTextures(1, &m_rndTextureID);
+	delete m_mesh;
 	glDeleteTextures(1, &m_waterTextureID);
 
 	glDeleteBuffers(1, &m_vboID);
@@ -262,36 +192,28 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
-	float t = SDL_GetTicks() / 1000.0f;
-		// nézeti transzformáció beállítása
-	m_matView = glm::lookAt(glm::vec3( 5*cosf(t),  3,  5*sinf(t)),		// honnan nézzük a színteret
+	// nézeti transzformáció beállítása
+	m_matView = glm::lookAt(glm::vec3(10, 10, 10),		// honnan nézzük a színteret
 							glm::vec3( 0,  0,  0),		// a színtér melyik pontját nézzük
 							glm::vec3( 0,  1,  0));		// felfelé mutató irány a világban
 }
 
 
-void CMyApp::Render()
+void CMyApp::DrawGround()
 {
-	// töröljük a frampuffert (GL_COLOR_BUFFER_BIT) és a mélységi Z puffert (GL_DEPTH_BUFFER_BIT)
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// shader bekapcsolasa
+	// a talaj kirajzolasahoz szukseges shader beallitasa
 	glUseProgram( m_programID );
 
 	// shader parameterek beállítása
 	/*
-
 	GLM transzformációs mátrixokra példák:
 		glm::rotate<float>( szög, glm::vec3(tengely_x, tengely_y, tengely_z) ) <- tengely_{xyz} körüli elforgatás
 		glm::translate<float>( glm::vec3(eltol_x, eltol_y, eltol_z) ) <- eltolás
 		glm::scale<float>( glm::vec3(s_x, s_y, s_z) ) <- léptékezés
-
 	*/
 	m_matWorld = glm::mat4(1.0f);
-
 	glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
-
-	// majd küldjük át a megfelelõ mátrixot!
+	// majd küldjük át a megfelelõ mátrixokat!
 	glUniformMatrix4fv( m_loc_mvp,// erre a helyre töltsünk át adatot
 						1,			// egy darab mátrixot
 						GL_FALSE,	// NEM transzponálva
@@ -299,8 +221,8 @@ void CMyApp::Render()
 	
 	// aktiváljuk a 0-és textúra mintavételezõ egységet
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_waterTextureID);
 	// aktiváljuk a generált textúránkat 
+	glBindTexture(GL_TEXTURE_2D, m_waterTextureID);
 	// textúra mintavételezõ és shader-beli sampler2D összerendelése
 	glUniform1i(	m_loc_texture,	// ezen azonosítójú sampler 2D
 					0);				// olvassa az ezen indexû mintavételezõt
@@ -310,7 +232,7 @@ void CMyApp::Render()
 
 	// kirajzolás
 	glDrawElements(	GL_TRIANGLES,		// primitív típus
-					42,					// hany csucspontot hasznalunk a kirajzolashoz
+					6,					// hany csucspontot hasznalunk a kirajzolashoz
 					GL_UNSIGNED_SHORT,	// indexek tipusa
 					0);					// indexek cime
 
@@ -320,9 +242,43 @@ void CMyApp::Render()
 	// textúra kikapcsolása
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	// shader kikapcsolasa
 	glUseProgram( 0 );
+}
 
+void CMyApp::DrawMesh()
+{
+	// a mesh kirajzolasahoz hasznalt shader bekapcsolasa
+	glUseProgram( m_programID );
+
+	m_matWorld = glm::translate<float>( glm::vec3(0, 1, 0) );
+	glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
+	// majd küldjük át a megfelelõ mátrixokat!
+	glUniformMatrix4fv( m_loc_mvp,// erre a helyre töltsünk át adatot
+						1,			// egy darab mátrixot
+						GL_FALSE,	// NEM transzponálva
+						&(mvp[0][0]) ); // innen olvasva a 16 x sizeof(float)-nyi adatot
+
+	// aktiváljuk a 0-és textúra mintavételezõ egységet
+	glActiveTexture(GL_TEXTURE0);
+	// aktiváljuk a generált textúránkat 
+	glBindTexture(GL_TEXTURE_2D, m_waterTextureID);
+	// textúra mintavételezõ és shader-beli sampler2D összerendelése
+	glUniform1i(	m_loc_texture,	// ezen azonosítójú sampler 2D
+					0);				// olvassa az ezen indexû mintavételezõt
+
+
+	m_mesh->draw();
+
+	glUseProgram( 0 );
+}
+
+void CMyApp::Render()
+{
+	// töröljük a frampuffert (GL_COLOR_BUFFER_BIT) és a mélységi Z puffert (GL_DEPTH_BUFFER_BIT)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	DrawGround();
+	DrawMesh();
 }
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
