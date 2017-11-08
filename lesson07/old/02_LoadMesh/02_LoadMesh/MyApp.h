@@ -37,7 +37,7 @@ public:
 protected:
 	// belsõ eljárások
 	void DrawGround();
-	void DrawMesh(int i, int maxI);
+	void DrawMesh();
 
 	// shaderekhez szükséges változók
 	GLuint m_programID; // shaderek programja
@@ -46,8 +46,6 @@ protected:
 	glm::mat4 m_matWorld;
 	glm::mat4 m_matView;
 	glm::mat4 m_matProj;
-
-	glm::mat4 m_matLol;
 
 	// mátrixok helye a shaderekben
 	GLuint	m_loc_mvp;

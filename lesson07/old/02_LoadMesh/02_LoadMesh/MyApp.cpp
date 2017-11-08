@@ -1,6 +1,7 @@
 #include "MyApp.h"
 #include "GLUtils.hpp"
 
+#include <GL/GLU.h>
 #include <math.h>
 
 CMyApp::CMyApp(void)
@@ -174,7 +175,7 @@ bool CMyApp::Init()
 	// mesh betoltese
 	m_mesh = ObjParser::parse("Suzanne.obj");
 	m_mesh->initBuffers();
-	
+
 
 	return true;
 }
@@ -245,19 +246,12 @@ void CMyApp::DrawGround()
 	glUseProgram( 0 );
 }
 
-void CMyApp::DrawMesh(int i, int maxI)
+void CMyApp::DrawMesh()
 {
 	// a mesh kirajzolasahoz hasznalt shader bekapcsolasa
 	glUseProgram( m_programID );
 
-	float angle = SDL_GetTicks() / 1000.;
-	float scale = abs(cos(SDL_GetTicks() / 1000.0 + (i * 2 * 3.1415 / maxI))) + 0.5;
-
-	m_matWorld = glm::rotate<float>(angle + 2 * 3.1415 * i / float(maxI), glm::vec3(0, 1, 0))
-		* glm::translate<float>( glm::vec3(8, 1, 0) )
-		* glm::rotate<float>(angle * 3.0, glm::vec3(0, 1, 0))
-		* glm::scale<float>(glm::vec3(scale, scale, scale));
-
+	m_matWorld = glm::translate<float>( glm::vec3(0, 1, 0) );
 	glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
 	// majd küldjük át a megfelelõ mátrixokat!
 	glUniformMatrix4fv( m_loc_mvp,// erre a helyre töltsünk át adatot
@@ -284,13 +278,8 @@ void CMyApp::Render()
 	// töröljük a frampuffert (GL_COLOR_BUFFER_BIT) és a mélységi Z puffert (GL_DEPTH_BUFFER_BIT)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//DrawGround();
-	int maxI = 7;
-	for (int i = 0; i <= maxI; i++)
-	{
-		DrawMesh(i, maxI);
-	}
-	
+	DrawGround();
+	DrawMesh();
 }
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)

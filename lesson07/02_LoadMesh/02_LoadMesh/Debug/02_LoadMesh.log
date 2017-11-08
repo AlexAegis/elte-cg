@@ -1,0 +1,7 @@
+﻿  MyApp.cpp
+c:\users\alexaegis\elte-computer-graphics\lesson07\02_loadmesh\02_loadmesh\myapp.cpp(253): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\alexaegis\elte-computer-graphics\lesson07\02_loadmesh\02_loadmesh\myapp.cpp(254): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\alexaegis\elte-computer-graphics\lesson07\02_loadmesh\02_loadmesh\myapp.cpp(259): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\alexaegis\elte-computer-graphics\lesson07\02_loadmesh\02_loadmesh\myapp.cpp(261): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  02_LoadMesh.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson07\02_LoadMesh\Debug\02_LoadMesh.exe
+  02_LoadMesh.vcxproj -> C:\Users\alexaegis\elte-computer-graphics\lesson07\02_LoadMesh\Debug\02_LoadMesh.pdb (Full PDB)

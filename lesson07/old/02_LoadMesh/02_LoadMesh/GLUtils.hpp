@@ -144,16 +144,9 @@ GLuint TextureFromFile(const char* filename)
     GLuint tex;
     glGenTextures(1, &tex);
   
-	glBindTexture(GL_TEXTURE_2D, tex);
-	glTexImage2D(GL_TEXTURE_2D,			// melyik binding point-on van a textúra erõforrás, amihez tárolást rendelünk
-		0,								// melyik részletességi szint adatait határozzuk meg
-		GL_RGB,							// textúra belsõ tárolási formátuma (GPU-n)
-		loaded_img->w, loaded_img->h,	// szélesség, magasság
-		0,								// nulla kell, hogy legyen ( https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml )
-		img_mode,						// forrás (=CPU-n) formátuma
-		GL_UNSIGNED_BYTE,				// forrás egy pixelének egy csatornáját hogyan tároljuk
-		loaded_img->pixels);			// forráshoz pointer
-	glGenerateMipmap(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, tex);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, loaded_img->w, loaded_img->h, img_mode, GL_UNSIGNED_BYTE, loaded_img->pixels);
+  
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
   
