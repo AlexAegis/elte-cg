@@ -9,7 +9,7 @@ CMyApp::CMyApp(void)
 	m_vboID = 0;
 	m_programID = 0;
 	m_waterTextureID = 0;
-
+	m_ibID = 0;
 	m_mesh = 0;
 }
 
@@ -31,24 +31,27 @@ bool CMyApp::Init()
 	// geometria letrehozasa
 	//
 
-	Vertex vert[] =
-	{ 
-		//          x,  y, z               nx,ny,nz			 s, t
-		{glm::vec3(-10, 0, -10), glm::vec3( 0, 1, 0), glm::vec2(0, 0)},
-		{glm::vec3(-10, 0,  10), glm::vec3( 0, 1, 0), glm::vec2(0, 1)},
-		{glm::vec3( 10, 0, -10), glm::vec3( 0, 1, 0), glm::vec2(1, 0)},
-		{glm::vec3( 10, 0,  10), glm::vec3( 0, 1, 0), glm::vec2(1, 1)},
-	};
+	std::vector<Vertex> vertices;
+	vertices.push_back({ glm::vec3(-1, 0, 1), glm::vec3(1, 0, 0) });
+	vertices.push_back({ glm::vec3(1, 0, 1), glm::vec3(1, 1, 0) });
+	vertices.push_back({ glm::vec3(1, 0, -1), glm::vec3(1, 0, 1) });
+	vertices.push_back({ glm::vec3(-1, 0, -1), glm::vec3(1, 0, 0) });
+	vertices.push_back({ glm::vec3(0, 2, 0), glm::vec3(1, 1, 0) });
+
+
 
 	// indexpuffer adatai
+	
     GLushort indices[]=
     {
-		// 1. háromszög
-        0,1,2,
-		// 2. háromszög
-        2,1,3,
-    };
+		0,2,1,0,3,2,
+		0,1,4,
+		1,2,3,
+		2,3,4,
+		3,0,4
 
+    };
+	
 	// 1 db VAO foglalasa
 	glGenVertexArrays(1, &m_vaoID);
 	// a frissen generált VAO beallitasa aktívnak
@@ -58,11 +61,8 @@ bool CMyApp::Init()
 	glGenBuffers(1, &m_vboID); 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // tegyük "aktívvá" a létrehozott VBO-t
 	// töltsük fel adatokkal az aktív VBO-t
-	glBufferData( GL_ARRAY_BUFFER,	// az aktív VBO-ba töltsünk adatokat
-				  sizeof(vert),		// ennyi bájt nagyságban
-				  vert,	// errõl a rendszermemóriabeli címrõl olvasva
-				  GL_STATIC_DRAW);	// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévõ adatokat
 	
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
 	// VAO-ban jegyezzük fel, hogy a VBO-ban az elsõ 3 float sizeof(Vertex)-enként lesz az elsõ attribútum (pozíció)
 	glEnableVertexAttribArray(0); // ez lesz majd a pozíció

@@ -54,12 +54,5 @@ protected:
 	GLuint m_rndTextureID; // textúra erõforrás azonosító
 	GLuint m_waterTextureID; // fájlból betöltött textúra azonosítója
 
-	struct Vertex
-	{
-		glm::vec3 p; // pozíció
-		glm::vec3 c; // szín
-		glm::vec2 t; // textúra koordináták
-	};
-
 };
 
