@@ -1,0 +1,10 @@
+﻿  VertexArrayObject.cpp
+  ShaderObject.cpp
+  ProgramObject.cpp
+  MyApp.cpp
+  main.cpp
+  GLconversions.cpp
+  gCamera.cpp
+  Generating Code...
+  01_OGLBase.vcxproj -> T:\lesson08\01_OGLBase\x64\Debug\01_OGLBase.exe
+  01_OGLBase.vcxproj -> T:\lesson08\01_OGLBase\x64\Debug\01_OGLBase.pdb (Partial PDB)
