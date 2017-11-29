@@ -1,0 +1,5 @@
+﻿  MyApp.cpp
+t:\submission01\mod\02_loadtexture\02_loadtexture\myapp.cpp(294): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+t:\submission01\mod\02_loadtexture\02_loadtexture\myapp.cpp(296): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  02_LoadTexture.vcxproj -> T:\submission01\mod\02_LoadTexture\Debug\02_LoadTexture.exe
+  02_LoadTexture.vcxproj -> T:\submission01\mod\02_LoadTexture\Debug\02_LoadTexture.pdb (Full PDB)
