@@ -1,0 +1,7 @@
+﻿  MyApp.cpp
+e:\egyetem\tanítás\számítógépes grafika gy\01_transforms\01_transforms\myapp.cpp(187): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\01_transforms\01_transforms\myapp.cpp(191): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+  01_Transforms.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\01_Transforms\Debug\01_Transforms.exe
+  01_Transforms.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\01_Transforms\Debug\01_Transforms.pdb (Full PDB)

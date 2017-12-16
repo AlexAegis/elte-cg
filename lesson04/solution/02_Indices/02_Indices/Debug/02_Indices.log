@@ -1,0 +1,6 @@
+﻿  MyApp.cpp
+e:\egyetem\tanítás\számítógépes grafika gy\02_indices\02_indices\myapp.cpp(211): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+  02_Indices.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\02_Indices\Debug\02_Indices.exe
+  02_Indices.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\02_Indices\Debug\02_Indices.pdb (Full PDB)

@@ -1,0 +1,9 @@
+﻿  MyApp.cpp
+e:\egyetem\tanítás\számítógépes grafika gy\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(139): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(140): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(141): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\02_shadersvaovbo\02_shadersvaovbo\myapp.cpp(144): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+  02_ShadersVAOVBO.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\02_ShadersVAOVBO\Debug\02_ShadersVAOVBO.exe
+  02_ShadersVAOVBO.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\02_ShadersVAOVBO\Debug\02_ShadersVAOVBO.pdb (Full PDB)

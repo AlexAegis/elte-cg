@@ -1,0 +1,12 @@
+﻿  main.cpp
+  ObjParser_OGL3.cpp
+  MyApp.cpp
+e:\egyetem\tanítás\számítógépes grafika gy\7. óra\02_loadmesh\02_loadmesh\myapp.cpp(183): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\7. óra\02_loadmesh\02_loadmesh\myapp.cpp(208): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\7. óra\02_loadmesh\02_loadmesh\myapp.cpp(265): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\7. óra\02_loadmesh\02_loadmesh\myapp.cpp(267): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+e:\egyetem\tanítás\számítógépes grafika gy\7. óra\02_loadmesh\02_loadmesh\myapp.cpp(269): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Mesh_OGL3.cpp
+  Generating Code...
+  02_LoadMesh.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\7. óra\02_LoadMesh\Debug\02_LoadMesh.exe
+  02_LoadMesh.vcxproj -> E:\Egyetem\tanítás\számítógépes grafika GY\7. óra\02_LoadMesh\Debug\02_LoadMesh.pdb (Full PDB)

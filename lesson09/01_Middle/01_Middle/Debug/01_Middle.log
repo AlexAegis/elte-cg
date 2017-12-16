@@ -1,0 +1,11 @@
+﻿  ObjParser_OGL3.cpp
+  MyApp.cpp
+  Mesh_OGL3.cpp
+  main.cpp
+  gVertexBuffer.cpp
+  gShaderProgram.cpp
+d:\work\git\elte-computer-graphics\lesson09\01_middle\01_middle\gshaderprogram.cpp(98): warning C4474: 'fprintf' : too many arguments passed for format string
+  d:\work\git\elte-computer-graphics\lesson09\01_middle\01_middle\gshaderprogram.cpp(98): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+  gCamera.cpp
+  Generating Code...
+  01_Middle.vcxproj -> D:\Work\Git\elte-computer-graphics\lesson09\01_Middle\Debug\01_Middle.exe

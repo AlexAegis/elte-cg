@@ -1,0 +1,23 @@
+﻿  VertexArrayObject.cpp
+  imgui_impl_sdl_gl3.cpp
+  imgui_draw.cpp
+  imgui_demo.cpp
+  imgui.cpp
+t:\oglpack\include\imgui\imgui.cpp(10996): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+t:\oglpack\include\imgui\imgui.cpp(11001): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+t:\oglpack\include\imgui\imgui.cpp(11124): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+t:\oglpack\include\imgui\imgui.cpp(11128): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  ShaderObject.cpp
+  ProgramObject.cpp
+  ObjParser_OGL3.cpp
+  MyApp.cpp
+d:\work\git\elte-computer-graphics\lesson09\solution\01_physics\01_physics\myapp.h(74): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\work\git\elte-computer-graphics\lesson09\solution\01_physics\01_physics\myapp.h(77): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Mesh_OGL3.cpp
+  main.cpp
+d:\work\git\elte-computer-graphics\lesson09\solution\01_physics\01_physics\myapp.h(74): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\work\git\elte-computer-graphics\lesson09\solution\01_physics\01_physics\myapp.h(77): warning C4305: 'initializing': truncation from 'double' to 'float'
+  GLconversions.cpp
+  gCamera.cpp
+  Generating Code...
+  01_Physics.vcxproj -> D:\Work\Git\elte-computer-graphics\lesson09\solution\01_Physics\x64\Debug\01_Physics.exe
