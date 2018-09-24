@@ -72,40 +72,6 @@ bool CMyApp::Init()
 
 	m_program.LinkProgram();
 
-	// shader program rövid létrehozása, egyetlen függvényhívással a fenti három:
-	m_programSkybox.Init(
-	{
-		{ GL_VERTEX_SHADER, "skybox.vert" },
-		{ GL_FRAGMENT_SHADER, "skybox.frag" }
-	},
-	{
-		{ 0, "vs_in_pos" },				// VAO 0-as csatorna menjen a vs_in_pos-ba
-	}
-	);
-
-	//1.:
-	m_programAxes.Init(
-	{
-		{ GL_VERTEX_SHADER, "axes.vert"},
-		{ GL_FRAGMENT_SHADER, "axes.frag"}
-	},
-	{
-		// most semmit nem küldünk tovább a programból
-	}
-	);
-
-	//2.:
-	m_programReflection.Init(
-	{
-		{ GL_VERTEX_SHADER, "reflection.vert" },
-		{ GL_FRAGMENT_SHADER, "reflection.frag" }
-	},
-	{
-		{ 0, "vs_in_pos" },
-	}
-	);
-
-
 	//
 	// geometria definiálása (std::vector<...>) és GPU pufferekbe (m_buffer*) való feltöltése BufferData-val
 	//x

@@ -167,12 +167,6 @@
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="ProgramObject.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
-    <None Include="axes.frag" />
-    <None Include="axes.vert" />
-    <None Include="reflection.frag" />
-    <None Include="reflection.vert" />
-    <None Include="skybox.frag" />
-    <None Include="skybox.vert" />
     <None Include="TextureObject.inl">
       <FileType>Document</FileType>
     </None>
