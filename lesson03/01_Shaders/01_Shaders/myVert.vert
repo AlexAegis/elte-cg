@@ -9,10 +9,10 @@ vec4 positions[4] = vec4[4](
 );
 
 vec4 colors[4] = vec4[4](
-	vec4(100, 34, 23, 1),
-	vec4(-40, 1, -0.1, 1),
-	vec4(20, -72, 0.5, 1),
-	vec4(10, 65, 1, 41)
+	vec4(1, 1, 1, 1),
+	vec4(-1, 1, -0.1, 1),
+	vec4(1, -1, 0.5, 1),
+	vec4(1, 1, 1, 1)
 );
 
 // kimeneti változó: a csúcspont színe
