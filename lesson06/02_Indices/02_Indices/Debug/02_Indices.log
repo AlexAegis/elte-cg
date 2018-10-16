@@ -1,0 +1,12 @@
+﻿  MyApp.cpp
+c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson06\02_indices\02_indices\myapp.cpp(210): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson06\02_indices\02_indices\myapp.cpp(211): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  02_Indices.vcxproj -> C:\Users\alexaegis\Downloads\PortableGit\elte-computer-graphics\lesson06\02_Indices\Debug\02_Indices.exe
