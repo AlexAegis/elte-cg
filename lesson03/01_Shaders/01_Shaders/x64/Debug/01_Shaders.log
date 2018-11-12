@@ -1,4 +1,1 @@
-﻿  MyApp.cpp
-  main.cpp
-  Generating Code...
-  01_Shaders.vcxproj -> T:\lesson03\01_Shaders\x64\Debug\01_Shaders.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.Cpp.WindowsSDK.targets(46,5): error MSB8036: The Windows SDK version 10.0.16299.0 was not found. Install the required version of Windows SDK or change the SDK version in the project property pages or by right-clicking the solution and selecting "Retarget solution".
