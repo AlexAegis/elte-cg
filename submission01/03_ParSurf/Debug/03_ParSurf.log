@@ -1,0 +1,9 @@
+﻿  MyApp.cpp
+d:\work\git\elte-computer-graphics\submission01\03_parsurf\myapp.cpp(252): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\work\git\elte-computer-graphics\submission01\03_parsurf\myapp.cpp(253): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\work\git\elte-computer-graphics\submission01\03_parsurf\myapp.cpp(291): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  03_ParSurf.vcxproj -> D:\Work\Git\elte-computer-graphics\submission01\Debug\03_ParSurf.exe
