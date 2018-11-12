@@ -1,7 +1,6 @@
-﻿  MyApp.cpp
-t:\bonus\02_shaders_mandelbrot\02_shaders\glutils.hpp(22): warning C4474: 'fprintf' : too many arguments passed for format string
-  t:\bonus\02_shaders_mandelbrot\02_shaders\glutils.hpp(22): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
-  main.cpp
+﻿  main.cpp
+  MyApp.cpp
+c:\users\alexaegis\desktop\elte-computer-graphics\bonus\02_shaders_mandelbrot\02_shaders\glutils.hpp(22): warning C4474: 'fprintf' : too many arguments passed for format string
+  c:\users\alexaegis\desktop\elte-computer-graphics\bonus\02_shaders_mandelbrot\02_shaders\glutils.hpp(22): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
   Generating Code...
-  02_Shaders.vcxproj -> T:\bonus\02_Shaders_Mandelbrot\Debug\02_Shaders.exe
-  02_Shaders.vcxproj -> T:\bonus\02_Shaders_Mandelbrot\Debug\02_Shaders.pdb (Partial PDB)
+  02_Shaders.vcxproj -> C:\Users\alexaegis\Desktop\elte-computer-graphics\bonus\02_Shaders_Mandelbrot\Debug\02_Shaders.exe

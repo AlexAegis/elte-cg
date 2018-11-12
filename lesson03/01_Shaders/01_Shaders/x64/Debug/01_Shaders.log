@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.Cpp.WindowsSDK.targets(46,5): error MSB8036: The Windows SDK version 10.0.16299.0 was not found. Install the required version of Windows SDK or change the SDK version in the project property pages or by right-clicking the solution and selecting "Retarget solution".
+=======
+﻿  01_Shaders.vcxproj -> C:\Users\alexaegis\Desktop\elte-computer-graphics\lesson03\01_Shaders\x64\Debug\01_Shaders.exe
+>>>>>>> 3f6bd2914166caca87d0e986a7a376f16df2c8ab
