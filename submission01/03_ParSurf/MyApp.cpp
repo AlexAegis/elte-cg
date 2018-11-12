@@ -249,8 +249,9 @@ void CMyApp::Render()
 			// shader bekapcsolasa
 			glUseProgram(m_programID);
 
-			float secondsFromStart = SDL_GetTicks() / 1000.;
-			float x = std::fmod(secondsFromStart, 40.);
+			float halfSecondsFromStart = SDL_GetTicks() / 1000.;
+			float x = std::fmod(halfSecondsFromStart, 10.);
+			x *= 4;
 			if (x > 20) {
 				x = 40 - x;
 			}
