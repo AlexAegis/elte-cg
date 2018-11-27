@@ -1,16 +1,10 @@
-﻿  main.cpp
-c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.h(75): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.h(76): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Mesh_OGL3.cpp
-  MyApp.cpp
+﻿  MyApp.cpp
 c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.h(75): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.h(76): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.cpp(188): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.cpp(329): warning C4305: 'argument': truncation from 'double' to 'float'
-  ObjParser_OGL3.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_impl_sdl_gl3.cpp
+  main.cpp
+c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.h(75): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\lesson10\02_loadmesh\02_loadmesh\myapp.h(76): warning C4305: 'initializing': truncation from 'double' to 'float'
   Generating Code...
   02_LoadMesh.vcxproj -> C:\Users\alexaegis\Downloads\PortableGit\elte-computer-graphics\lesson10\02_LoadMesh\Debug\02_LoadMesh.exe

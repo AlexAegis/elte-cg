@@ -1,11 +1,9 @@
-﻿  main.cpp
-  MyApp.cpp
-c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\submission01\03_parsurf\myapp.cpp(252): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\submission01\03_parsurf\myapp.cpp(253): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\alexaegis\downloads\portablegit\elte-computer-graphics\submission01\03_parsurf\myapp.cpp(283): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-  Generating Code...
-  03_ParSurf.vcxproj -> C:\Users\alexaegis\Downloads\PortableGit\elte-computer-graphics\submission01\Debug\03_ParSurf.exe
+﻿main.obj : error LNK2019: unresolved external symbol "struct ImGuiIO & __cdecl ImGui::GetIO(void)" (?GetIO@ImGui@@YAAAUImGuiIO@@XZ) referenced in function _SDL_main
+main.obj : error LNK2019: unresolved external symbol "void __cdecl ImGui::Render(void)" (?Render@ImGui@@YAXXZ) referenced in function _SDL_main
+main.obj : error LNK2019: unresolved external symbol "bool __cdecl ImGui_ImplSdlGL3_Init(struct SDL_Window *)" (?ImGui_ImplSdlGL3_Init@@YA_NPAUSDL_Window@@@Z) referenced in function _SDL_main
+main.obj : error LNK2019: unresolved external symbol "void __cdecl ImGui_ImplSdlGL3_Shutdown(void)" (?ImGui_ImplSdlGL3_Shutdown@@YAXXZ) referenced in function _SDL_main
+main.obj : error LNK2019: unresolved external symbol "void __cdecl ImGui_ImplSdlGL3_NewFrame(struct SDL_Window *)" (?ImGui_ImplSdlGL3_NewFrame@@YAXPAUSDL_Window@@@Z) referenced in function _SDL_main
+main.obj : error LNK2019: unresolved external symbol "bool __cdecl ImGui_ImplSdlGL3_ProcessEvent(union SDL_Event *)" (?ImGui_ImplSdlGL3_ProcessEvent@@YA_NPATSDL_Event@@@Z) referenced in function _SDL_main
+MyApp.obj : error LNK2019: unresolved external symbol "void __cdecl ImGui::ShowTestWindow(bool *)" (?ShowTestWindow@ImGui@@YAXPA_N@Z) referenced in function "public: void __thiscall CMyApp::Render(void)" (?Render@CMyApp@@QAEXXZ)
+MyApp.obj : error LNK2019: unresolved external symbol "void __cdecl ImGui::Text(char const *,...)" (?Text@ImGui@@YAXPBDZZ) referenced in function "public: void __thiscall CMyApp::Render(void)" (?Render@CMyApp@@QAEXXZ)
+C:\Users\alexaegis\Downloads\PortableGit\elte-computer-graphics\submission01\Debug\03_ParSurf.exe : fatal error LNK1120: 8 unresolved externals

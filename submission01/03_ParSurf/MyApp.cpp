@@ -2,6 +2,7 @@
 #include "GLUtils.hpp"
 
 #include <math.h>
+#include <imgui/imgui.h>
 
 Element::Element(glm::vec3 p, glm::vec3 col, double scale, double offsetX, double offsetY, double offsetZ, bool ccw) {
 	if (ccw == false) {
@@ -308,7 +309,10 @@ void CMyApp::Render()
 			glUseProgram(0);
 		}
 	}
-	
+
+
+	ImGui::ShowTestWindow();
+	ImGui::Text("Hello world!");
 }
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
