@@ -1,30 +1,19 @@
-#version 330 core
+Ôªø#version 330 core
 
-// VBO-bÛl Èrkezı v·ltozÛk
+// VBO-b√≥l √©rkez√µ v√°ltoz√≥k
 in vec3 vs_in_pos;
 
-// a pipeline-ban tov·bb adandÛ ÈrtÈkek
+// a pipeline-ban tov√°bb adand√≥ √©rt√©kek
 out vec3 vs_out_pos;
+out float _dampened_iteration_count;
 
-// shader k¸lsı paramÈterei - most a h·rom transzform·ciÛs m·trixot k¸lˆn-k¸lˆn vessz¸k ·t
+// shader k√ºls√µ param√©terei - most a h√°rom transzform√°ci√≥s m√°trixot k√ºl√∂n-k√ºl√∂n vessz√ºk √°t
 uniform mat4 MVP;
 
 void main()
 {
-	//gl_Position = MVP * vec4( vs_in_pos, 1 );
-	//gl_Position = MVP * vec4( vec3(vs_in_pos[0], vs_in_pos[1], vs_in_pos[2]), 1 );
-	/* gˆmbˆcske
-	float u = vs_in_pos[0] * 2 * 3.1415f;
-	float v = vs_in_pos[1] * 3.1415f;
-	float cu = cos(u), su = sin(u), cv = cos(v), sv = sin(v);
-	float r = 2;
-	gl_Position = MVP * vec4(vec3(r*cu*sv, r*cv, r*su*sv), 1);
-	vs_out_pos = vs_in_pos;
-	*/
-
-
-	float x0 = vs_in_pos[0] * 2.4 - 1.5; //scaled x coordinate of pixel (scaled to lie in the Mandelbrot X scale (-2.5, 1))
-	float y0 = vs_in_pos[1] * 2.4 - 1.2; //scaled y coordinate of pixel (scaled to lie in the Mandelbrot Y scale (-1, 1))
+	float x0 = vs_in_pos[0] * 2.4 - 1.5;
+	float y0 = vs_in_pos[1] * 2.4 - 1.2;
 	float x = 0.0;
 	float y = 0.0;
 	int iteration = 0;
@@ -39,10 +28,11 @@ void main()
 		}
 		iteration = iteration + 1;
 	}
-	float dampened_iteration_count = 1.4*exp(-0.02 * iteration);
-	vs_out_pos = vec3(vs_in_pos[0] / dampened_iteration_count * 1.2, vs_in_pos[1]/ dampened_iteration_count * 0.6, vs_in_pos[2] / dampened_iteration_count) * 1.2; // color = palette[iteration]
+	float dampened_iteration_count = 0.1*exp(-0.04 * iteration);
+	float dampened_x = x / max_iteration;
+	float task = iteration / max_iteration;
+	vs_out_pos = vs_in_pos;
+	_dampened_iteration_count = dampened_iteration_count;
+	gl_Position = MVP * vec4(vs_in_pos[0], vs_in_pos[1], dampened_iteration_count /* a m√°sodik k√©pen a task a magass√°gt√©rk√©p az els≈ën a dampened_iteration_count */ , 0.2); // -0.1*exp(-0.1 * iteration)
 
-	gl_Position = MVP * vec4(vs_in_pos[0], vs_in_pos[1], -0.1*exp(-0.1 * iteration), 0.2);
-
-	// plot(Px, Py, color)
 }
