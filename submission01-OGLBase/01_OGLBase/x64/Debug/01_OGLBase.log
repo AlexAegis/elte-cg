@@ -1,0 +1,24 @@
+﻿  gCamera.cpp
+  GLconversions.cpp
+  main.cpp
+  MyApp.cpp
+t:\submission01-oglbase\01_oglbase\myapp.cpp(290): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+t:\submission01-oglbase\01_oglbase\myapp.cpp(291): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+t:\submission01-oglbase\01_oglbase\myapp.cpp(325): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  ProgramObject.cpp
+  ShaderObject.cpp
+  imgui.cpp
+t:\oglpack\include\imgui\imgui.cpp(10996): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+t:\oglpack\include\imgui\imgui.cpp(11001): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+t:\oglpack\include\imgui\imgui.cpp(11124): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+t:\oglpack\include\imgui\imgui.cpp(11128): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_sdl_gl3.cpp
+  VertexArrayObject.cpp
+  Generating Code...
+  01_OGLBase.vcxproj -> T:\submission01-OGLBase\x64\Debug\01_OGLBase.exe

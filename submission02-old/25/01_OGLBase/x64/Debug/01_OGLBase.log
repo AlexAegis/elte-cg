@@ -1,0 +1,9 @@
+﻿  gCamera.cpp
+  GLconversions.cpp
+  main.cpp
+  MyApp.cpp
+  ProgramObject.cpp
+  ShaderObject.cpp
+  VertexArrayObject.cpp
+  Generating Code...
+  01_OGLBase.vcxproj -> D:\Work\Git\elte-computer-graphics\submission02-old\25\x64\Debug\01_OGLBase.exe
