@@ -12,6 +12,7 @@ uniform mat4 MVP;
 
 void main()
 {
+
 	float x0 = vs_in_pos[0] * 2.4 - 1.5;
 	float y0 = vs_in_pos[1] * 2.4 - 1.2;
 	float x = 0.0;

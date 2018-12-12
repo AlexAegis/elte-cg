@@ -55,6 +55,9 @@ protected:
 
 	gCamera				m_camera;
 
+	Texture2D			m_texture_a;
+	Texture2D			m_texture_b;
+
 	glm::vec3 GetUV(float u, float v, float d); // u, v, coordinates, d, height of the parametric surface
 	static const int N = 600;
 	static const int M = 600;

@@ -77,7 +77,7 @@ bool CMyApp::Init()
 		{ GL_FRAGMENT_SHADER, "myFrag.frag"}
 	},{
 		{ 0, "vs_in_pos" },				// VAO 0-as csatorna menjen a vs_in_pos-ba
-		{ 1, "vs_in_col" }				// VAO 1-es csatorna menjen a vs_in_col-ba
+		{ 1, "vs_in_col" },				// VAO 1-es csatorna menjen a vs_in_col-ba
 	});
 
 
@@ -121,6 +121,9 @@ bool CMyApp::Init()
 	},
 	m_gpuBufferIndices
 	);
+	// textúra betöltése
+	m_texture_a.FromFile("texture.png");
+	m_texture_b.FromFile("hz.jpg");
 
 	// skybox
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
@@ -202,7 +205,9 @@ void CMyApp::Render()
 	m_vao.Bind();
 
 	m_program.Use();
-
+	m_program.SetTexture("tex_a", 0, m_texture_a);
+	m_program.SetTexture("tex_b", 1, m_texture_b);
+	m_program.SetUniform("transition", 2+2*sinf(SDL_GetTicks() / 1000.0f));
 	// fõ kocka
 	//glm::mat4 cubeWorld = glm::rotate(-1.0f, glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(10,10,1));	// nem kifordítjuk, mert egyébként "kívül a belül"
 	m_program.SetUniform("MVP", m_camera.GetViewProj());
