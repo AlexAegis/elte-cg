@@ -11,22 +11,24 @@
 CMyApp::CMyApp(void)
 {
 	m_camera.SetView(glm::vec3(5, 5, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	std::cout << "----------------------------------------SIZE: " << std::endl;
 }
 
 
 CMyApp::~CMyApp(void)
 {
 	std::cout << "dtor!\n";
+
 }
 
 glm::vec3 CMyApp::GetUV(float u, float v, float d) {
-	//return glm::vec3(u, v, d);
-
+	return glm::vec3(u, v, d);
+	/*
 	u *= 2 * 3.1415f;
 	v *= 3.1415f;
 	float cu = cosf(u), su = sinf(u), cv = cosf(v), sv = sinf(v);
 	float r = 2;
-	return glm::vec3(r*cu*sv, r*cv, r*su*sv);
+	return glm::vec3(r*cu*sv, r*cv, r*su*sv);*/
 }
 
 bool CMyApp::Init()
@@ -37,20 +39,20 @@ bool CMyApp::Init()
 	glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
 	glEnable(GL_DEPTH_TEST); // mélységi teszt bekapcsolása (takarás)
 
-	glm::vec3 vert[vertSize];
+	glm::vec3 *vert = new glm::vec3[vertSize];
 	for (int i = 0; i <= N; ++i) {
 		for (int j = 0; j <= M; ++j)
 		{
 			float u = i / (float)N;
 			float v = j / (float)M;
-			vert[i + j * (N + 1)] = GetUV(u, v, 1);
+			vert[i + j * (N + 1)] = glm::vec3(u, v, 1); //GetUV(u, v, 1);
 			//vert[i + j * (N + 1)].c = glm::normalize(vert[i + j * (N + 1)].p);
 		}
 
 	}
 	std::vector<glm::vec3> vertVector = std::vector<glm::vec3>(vert, vert + vertSize);
 
-	int indices[indicesSize];
+	int *indices = new int[indicesSize];
 	for (int i = 0; i < N; ++i) {
 		for (int j = 0; j < M; ++j)
 		{
@@ -202,10 +204,10 @@ void CMyApp::Render()
 	m_program.Use();
 
 	// fõ kocka
-	glm::mat4 cubeWorld = glm::scale(glm::vec3(1,1,1));	// nem kifordítjuk, mert egyébként "kívül a belül"
-	m_program.SetUniform("MVP", m_camera.GetViewProj()*cubeWorld);
+	//glm::mat4 cubeWorld = glm::rotate(-1.0f, glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(10,10,1));	// nem kifordítjuk, mert egyébként "kívül a belül"
+	m_program.SetUniform("MVP", m_camera.GetViewProj());
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, nullptr);
-
+	/*
 	// kicsi kockák
 	for (int i = 0; i < 10; ++i)
 	{
@@ -217,7 +219,7 @@ void CMyApp::Render()
 		m_program.SetUniform("MVP", m_camera.GetViewProj()*cubeWorld);
 		glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, nullptr);
 	}
-
+	*/
 	// skybox
 
 	// mentsük el az elõzõ Z-test eredményt, azaz azt a relációt, ami alapján update-eljük a pixelt.

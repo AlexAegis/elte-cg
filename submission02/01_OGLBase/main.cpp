@@ -27,6 +27,7 @@ int main( int argc, char* args[] )
 {
 	// állítsuk be, hogy kilépés elõtt hívja meg a rendszer az exitProgram() függvényt - Kérdés: mi lenne enélkül?
 	atexit( exitProgram );
+	std::cout << "----------------------------------------SIZE: " << std::endl;
 
 	//
 	// 1. lépés: inicializáljuk az SDL-t

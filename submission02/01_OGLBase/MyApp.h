@@ -56,10 +56,10 @@ protected:
 	gCamera				m_camera;
 
 	glm::vec3 GetUV(float u, float v, float d); // u, v, coordinates, d, height of the parametric surface
-	static const int N = 20;
-	static const int M = 10;
-	static const int vertSize = N + M * (N + 1) + 1;
-	static const int indicesSize = 6 * N + M * 6 * (N)+5 + 1;
+	static const int N = 600;
+	static const int M = 600;
+	static const int vertSize = (N + M * (N + 1) + 1);
+	static const int indicesSize = (6 * N + M * 6 * (N)+5 + 1);
 	// nyers OGL azonosítók
 	GLuint				m_skyboxTexture;
 };
