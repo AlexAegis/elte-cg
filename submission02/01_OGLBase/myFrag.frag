@@ -18,9 +18,9 @@ void main()
 
 
 
-	vec4 tca = texture( tex_a, vec2(vs_out_pos[0], vs_out_pos[1])) * transition;
+	vec4 tca = texture( tex_a, vec2(vs_out_pos[0], -vs_out_pos[1])) * transition;
 	
-	vec4 tcb = texture( tex_b, vec2(vs_out_pos[0], vs_out_pos[1])) * (2 - transition);
+	vec4 tcb = texture( tex_b, vec2(vs_out_pos[0], -vs_out_pos[1])) * (2 - transition);
 	
 	fs_out_col =  vec4(vs_out_pos * -mul, 1) * (tcb + tca);
 }

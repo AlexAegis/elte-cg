@@ -65,5 +65,13 @@ protected:
 	static const int indicesSize = (6 * N + M * 6 * (N)+5 + 1);
 	// nyers OGL azonosítók
 	GLuint				m_skyboxTexture;
+
+	// Imgui stuff
+	float m_x_offset = 1.5f;
+	float m_y_offset = 1.2f;
+	float m_x_scale = 0.4f;
+	float m_y_scale = 0.4f;
+	float m_treshhold = 2;
+	bool m_task = false;
 };
 

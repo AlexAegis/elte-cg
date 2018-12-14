@@ -122,8 +122,8 @@ bool CMyApp::Init()
 	m_gpuBufferIndices
 	);
 	// textúra betöltése
-	m_texture_a.FromFile("texture.png");
-	m_texture_b.FromFile("hz.jpg");
+	m_texture_a.FromFile("virgin.png");
+	m_texture_b.FromFile("chad.png");
 
 	// skybox
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
@@ -208,6 +208,13 @@ void CMyApp::Render()
 	m_program.SetTexture("tex_a", 0, m_texture_a);
 	m_program.SetTexture("tex_b", 1, m_texture_b);
 	m_program.SetUniform("transition", 2+2*sinf(SDL_GetTicks() / 1000.0f));
+	m_program.SetUniform("m_treshhold", m_treshhold);
+	m_program.SetUniform("m_x_offset", m_x_offset);
+	m_program.SetUniform("m_y_offset", m_y_offset);
+	m_program.SetUniform("m_x_scale", m_x_scale);
+	m_program.SetUniform("m_y_scale", m_y_scale);
+	float m_task_floatified = m_task ? 1.0f : 0.0f;
+	m_program.SetUniform("m_task", m_task_floatified);
 	// fõ kocka
 	//glm::mat4 cubeWorld = glm::rotate(-1.0f, glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(10,10,1));	// nem kifordítjuk, mert egyébként "kívül a belül"
 	m_program.SetUniform("MVP", m_camera.GetViewProj());
@@ -255,7 +262,22 @@ void CMyApp::Render()
 	//			   ahol az X piros, az Y zöld a Z pedig kék!
 
 	//ImGui Testwindow
-	ImGui::ShowTestWindow();
+
+	ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiSetCond_FirstUseEver);
+
+
+	if (ImGui::Begin("Toolbox"))
+	{
+		ImGui::SliderFloat("Xn > ?", &m_treshhold, 0, 2);
+
+		
+		ImGui::SliderFloat("m_x_offset", &m_x_offset, 0, 4);
+		ImGui::SliderFloat("m_y_offset", &m_y_offset, 0, 4);
+		ImGui::SliderFloat("m_x_scale", &m_x_scale, 0, 1);
+		ImGui::SliderFloat("m_y_scale", &m_y_scale, 0, 1);
+		ImGui::Checkbox("m_task", &m_task);
+	}
+	ImGui::End(); // ...de még ha le is volt, End()-et hívnunk kell
 }
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
