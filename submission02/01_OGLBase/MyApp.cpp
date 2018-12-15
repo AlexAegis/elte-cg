@@ -36,7 +36,7 @@ bool CMyApp::Init()
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
 
-	glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
+	//glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
 	glEnable(GL_DEPTH_TEST); // mélységi teszt bekapcsolása (takarás)
 
 	glm::vec3 *vert = new glm::vec3[vertSize];
@@ -65,7 +65,9 @@ bool CMyApp::Init()
 		}
 	}
 	std::vector<int> indicesVector = std::vector<int>(indices, indices + indicesSize);
-
+	// textúra betöltése
+	m_texture_a.FromFile("virgin.png");
+	m_texture_b.FromFile("chad.png");
 
 	//
 	// shaderek betöltése
@@ -109,6 +111,10 @@ bool CMyApp::Init()
 	// és a primitíveket alkotó csúcspontok indexei (az elõzõ tömbökbõl) - triangle list-el való kirajzolásra felkészülve
 	m_gpuBufferIndices.BufferData(indicesVector);
 
+
+
+
+
 	// geometria VAO-ban való regisztrálása
 	m_vao.Init(
 	{
@@ -121,12 +127,65 @@ bool CMyApp::Init()
 	},
 	m_gpuBufferIndices
 	);
-	// textúra betöltése
-	m_texture_a.FromFile("virgin.png");
-	m_texture_b.FromFile("chad.png");
+
+	m_sky_gpuBufferPos.BufferData(
+		std::vector<glm::vec3>{
+		// hátsó lap
+		glm::vec3(-1, -1, -1),
+			glm::vec3(1, -1, -1),
+			glm::vec3(1, 1, -1),
+			glm::vec3(-1, 1, -1),
+			// elülsõ lap
+			glm::vec3(-1, -1, 1),
+			glm::vec3(1, -1, 1),
+			glm::vec3(1, 1, 1),
+			glm::vec3(-1, 1, 1),
+
+	}
+	);
+
+	// és a primitíveket alkotó csúcspontok indexei (az elõzõ tömbökbõl) - triangle list-el való kirajzolásra felkészülve
+	m_sky_gpuBufferIndices.BufferData(
+		std::vector<int>{
+		// hátsó lap
+		0, 1, 2,
+			2, 3, 0,
+			// elülsõ lap
+			4, 6, 5,
+			6, 4, 7,
+			// bal
+			0, 3, 4,
+			4, 3, 7,
+			// jobb
+			1, 5, 2,
+			5, 6, 2,
+			// alsó
+			1, 0, 4,
+			1, 4, 5,
+			// felsõ
+			3, 2, 6,
+			3, 6, 7,
+	}
+	);
+
+	// geometria VAO-ban való regisztrálása
+	m_sky_vao.Init(
+		{
+			// 0-ás attribútum "lényegében" glm::vec3-ak sorozata és az adatok az m_gpuBufferPos GPU pufferben vannak
+			{ CreateAttribute<		0,						// csatorna: 0
+									glm::vec3,				// CPU oldali adattípus amit a 0-ás csatorna attribútumainak meghatározására használtunk <- az eljárás a glm::vec3-ból kikövetkezteti, hogy 3 darab float-ból áll a 0-ás attribútum
+									0,						// offset: az attribútum tároló elejétõl vett offset-je, byte-ban
+									sizeof(glm::vec3)		// stride: a következõ csúcspont ezen attribútuma hány byte-ra van az aktuálistól
+								>, m_sky_gpuBufferPos },
+		},
+		m_sky_gpuBufferIndices
+	);
+
+
 
 	// skybox
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
 
 	glGenTextures(1, &m_skyboxTexture);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_skyboxTexture);
@@ -219,19 +278,7 @@ void CMyApp::Render()
 	//glm::mat4 cubeWorld = glm::rotate(-1.0f, glm::vec3(1, 0, 0)) * glm::scale(glm::vec3(10,10,1));	// nem kifordítjuk, mert egyébként "kívül a belül"
 	m_program.SetUniform("MVP", m_camera.GetViewProj());
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, nullptr);
-	/*
-	// kicsi kockák
-	for (int i = 0; i < 10; ++i)
-	{
-		cubeWorld = 
-			glm::rotate( SDL_GetTicks()/1000.0f + 2 * glm::pi<float>()/10*i, glm::vec3(0,1,0) )*
-			glm::translate(glm::vec3(10 + 5*sinf(SDL_GetTicks()/1000.0f),0,0))*
-			glm::rotate( (i+1)*SDL_GetTicks() / 1000.0f, glm::vec3(0, 1, 0))*
-			glm::scale(glm::vec3(0.5, 0.5, 0.5));	
-		m_program.SetUniform("MVP", m_camera.GetViewProj()*cubeWorld);
-		glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, nullptr);
-	}
-	*/
+
 	// skybox
 
 	// mentsük el az elõzõ Z-test eredményt, azaz azt a relációt, ami alapján update-eljük a pixelt.
@@ -241,17 +288,14 @@ void CMyApp::Render()
 	// most kisebb-egyenlõt használjunk, mert mindent kitolunk a távoli vágósíkokra
 	glDepthFunc(GL_LEQUAL);
 
-	m_vao.Bind();
+	m_sky_vao.Bind();
 
 	m_programSkybox.Use();
 	m_programSkybox.SetUniform("MVP", m_camera.GetViewProj() * glm::translate( m_camera.GetEye()) );
 	
-	// cube map textúra beállítása 0-ás mintavételezõre és annak a shaderre beállítása
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, m_skyboxTexture);
-	glUniform1i(m_programSkybox.GetLocation("skyboxTexture"), 0);
 
-	// az elõzõ három sor <=> m_programSkybox.SetCubeTexture("skyboxTexture", 0, m_skyboxTexture);
+
+	m_programSkybox.SetCubeTexture("skyboxTexture", 0, m_skyboxTexture);
 
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 

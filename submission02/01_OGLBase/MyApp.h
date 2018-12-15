@@ -53,6 +53,10 @@ protected:
 	IndexBuffer			m_gpuBufferIndices;	// indexek
 	ArrayBuffer			m_gpuBufferPos;		// pozíciók tömbje
 
+	VertexArrayObject	m_sky_vao;				// VAO objektum
+	IndexBuffer			m_sky_gpuBufferIndices;	// indexek
+	ArrayBuffer			m_sky_gpuBufferPos;		// pozíciók tömbje
+
 	gCamera				m_camera;
 
 	Texture2D			m_texture_a;
