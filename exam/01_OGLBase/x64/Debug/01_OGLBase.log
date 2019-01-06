@@ -1,7 +1,9 @@
 ﻿  MyApp.cpp
-c:\users\alexaegis\downloads\01_oglbase\01_oglbase\myapp.cpp(462): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+c:\git\elte-cg\exam\01_oglbase\myapp.cpp(461): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-  01_OGLBase.vcxproj -> C:\Users\alexaegis\Downloads\01_OGLBase\x64\Debug\01_OGLBase.exe
+  main.cpp
+  Generating Code...
+  01_OGLBase.vcxproj -> C:\git\elte-cg\exam\x64\Debug\01_OGLBase.exe

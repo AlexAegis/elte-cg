@@ -210,18 +210,17 @@ bool CMyApp::Init()
 
 	m_gpuBufferNorm.BufferData(
 		std::vector<glm::vec3>{
-		// hátsó lap
-		glm::normalize(glm::vec3(-1, -1, -1)),
+			// hátsó lap
+			glm::normalize(glm::vec3(-1, -1, -1)),
 			glm::normalize(glm::vec3(1, -1, -1)),
-				glm::normalize(glm::vec3(1, 1, -1)),
-					glm::normalize(glm::vec3(-1, 1, -1)),
+			glm::normalize(glm::vec3(1, 1, -1)),
+			glm::normalize(glm::vec3(-1, 1, -1)),
 			// elülsõ lap
-						glm::normalize(glm::vec3(-1, -1, 1)),
-							glm::normalize(glm::vec3(1, -1, 1)),
-								glm::normalize(glm::vec3(1, 1, 1)),
-									glm::normalize(glm::vec3(-1, 1, 1)),
-
-	}
+			glm::normalize(glm::vec3(-1, -1, 1)),
+			glm::normalize(glm::vec3(1, -1, 1)),
+			glm::normalize(glm::vec3(1, 1, 1)),
+			glm::normalize(glm::vec3(-1, 1, 1)),
+		}
 	);
 
 	// és a primitíveket alkotó csúcspontok indexei (az elõzõ tömbökbõl) - triangle list-el való kirajzolásra felkészülve
